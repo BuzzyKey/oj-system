@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>提交代码 - {{ problem.title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/problems">题目列表</a></li>
+                <li class="breadcrumb-item active">{{ problem.title }}</li>
+            </ol>
+        </nav>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                题目描述
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ problem.title }}</h5>
+                <p class="card-text">{{ problem.description }}</p>
+                <p><strong>示例输入：</strong></p>
+                <pre>{{ problem.test_input }}</pre>
+                <p><strong>示例输出：</strong></p>
+                <pre>{{ problem.expected_output }}</pre>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                提交你的代码 (Python)
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/problem/{{ problem.id }}">
+                    <div class="mb-3">
+                        <label for="code" class="form-label">Python 代码</label>
+                        <textarea class="form-control" id="code" name="code" rows="10" required>print(input().strip())</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">提交判题</button>
+                </form>
+            </div>
+        </div>
+
+        {% if result %}
+        <div class="card mt-4">
+            <div class="card-header">
+                判题结果
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">状态: 
+                    {% if result.status == 'AC' %}
+                    <span class="badge bg-success">AC</span>
+                    {% elif result.status == 'WA' %}
+                    <span class="badge bg-danger">WA</span>
+                    {% elif result.status == 'TLE' %}
+                    <span class="badge bg-warning">TLE</span>
+                    {% else %}
+                    <span class="badge bg-secondary">RE</span>
+                    {% endif %}
+                </h5>
+                <pre>{{ result.message }}</pre>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
