@@ -243,4 +243,7 @@ def judge_page():
 
 if __name__ == '__main__':
     app.run(debug=True)
+<<<<<<< HEAD
 
+=======
+>>>>>>> fcb609b4e588fbfa4b411f382e76686c2dd3db0a
